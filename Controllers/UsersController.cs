@@ -1,39 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using Bangalores.CORE.Dtos;
+using Bangalores.CORE.Interfaces;
 using System.Web.Http;
 
 namespace Bangalore.API.Controllers
 {
     public class UsersController : ApiController
     {
-        // GET: api/Users
-        public IHttpActionResult Get()
+
+        private readonly IUserServices _userServices;
+        public UsersController(IUserServices userServices)
         {
-            return Ok(null);
+            _userServices = userServices;
+
         }
+        // GET: api/Users
+        public IHttpActionResult Get() => Ok(_userServices.GetUsers());
+
 
         // GET: api/Users/5
-        public string Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return "value";
+            var model = _userServices.GetUserById(id);
+            if (model != null) return Ok(model);
+            return NotFound();
         }
 
-        // POST: api/Users
-        public void Post([FromBody]string value)
+        [HttpPost]
+        [Route(Name = "saveUser")]
+        public IHttpActionResult Post([FromBody] UserDto theModel)
         {
+            if (!ModelState.IsValid) return BadRequest();
+
+            var createModel = _userServices.SaveUser(theModel);
+
+            return CreatedAtRoute("saveUser", new { id = theModel.Id }, createModel);
         }
 
         // PUT: api/Users/5
-        public void Put(int id, [FromBody]string value)
+        [HttpPut]
+        [Route("users/{id}")]
+        public IHttpActionResult Put(int id, [FromBody] UserDto theModel)
         {
+            if (ModelState.IsValid) return BadRequest();
+            var modelUpdated = _userServices.UpdateUser(id, theModel);
+            if (modelUpdated == null) return NotFound();
+            return Ok(modelUpdated);
         }
 
         // DELETE: api/Users/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            if (id != default)
+            {
+                var softDeleteUser = _userServices.DeleteUser(id);
+                if (softDeleteUser == null) return BadRequest();
+                return Ok(softDeleteUser);
+            }
+            return NotFound();
         }
     }
 }
