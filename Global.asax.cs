@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Bangalore.API.Interfaces;
+using Bangalore.API.Services;
+using System.ComponentModel.Design;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -13,6 +12,9 @@ namespace Bangalore.API
     {
         protected void Application_Start()
         {
+
+            //register other services
+         
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

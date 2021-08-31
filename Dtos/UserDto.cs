@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Bangalores.CORE.Dtos
+﻿namespace Bangalores.CORE.Dtos
 {
     public class UserDto
     {

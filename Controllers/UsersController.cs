@@ -8,12 +8,12 @@ namespace Bangalore.API.Controllers
     {
 
         private readonly IUserServices _userServices;
-        public UsersController(IUserServices userServices)
+             public UsersController(IUserServices userServices)
         {
             _userServices = userServices;
 
         }
-        // GET: api/Users
+        //GET: api/Users
         public IHttpActionResult Get() => Ok(_userServices.GetUsers());
 
 

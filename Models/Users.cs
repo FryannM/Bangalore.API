@@ -32,5 +32,9 @@ namespace Bangalore.API.Models
         /// Flag to check if User was delete it. thats call a soft removed
         /// </summary>
         public bool WasDeleted { get; set; }
+
+        public string UserName { get; set; }
+        public string PassWord { get; set; }
+
     }
 }
