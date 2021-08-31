@@ -13,13 +13,13 @@ namespace Bangalore.API.Controllers
 
         }
         [HttpPost]
-        //[Route(Name = ("authenticate"))]
+        [Route(Name = ("authenticate"))]
         public IHttpActionResult Authenticate(AuthenticateRequest model)
         {
-            return null;
-            //var response = _authServices.Authenticate(model);
-            //if (response == null) return BadRequest();
-            //return Ok(response);
+
+            var response = _authServices.Authenticate(model);
+            if (response == null) return BadRequest();
+            return Ok(response);
         }
     }
 }
